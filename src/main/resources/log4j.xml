@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<!-- Appenders -->
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p - %d{HH:mm:ss} : %c - %m%n" />
+		</layout>
+	</appender>
+	<!-- //날짜별 로그 파일 생성 하기 -->	
+	<appender name="file" class="org.apache.log4j.rolling.RollingFileAppender">
+	    <rollingPolicy class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
+	            <param name="FileNamePattern" value="${catalina.base}/logs/returnp/log-%d.log.gz"/>
+	    </rollingPolicy>
+	    <layout class="org.apache.log4j.PatternLayout">
+	        <param name="ConversionPattern" value="%d{ABSOLUTE} %-5p [%c{1}] %m%n" />
+	    </layout>
+	</appender>
+	<!-- Application Loggers -->
+	<logger name="org.springframework" additivity="false">
+		<level value="info" />
+		<appender-ref ref="console" />
+		<appender-ref ref="file" />
+	</logger>
+	<logger name="com.returnp.batch" additivity="false">
+		<level value="info" />
+		<appender-ref ref="console" />
+		<appender-ref ref="file" />
+	</logger>
+	<logger name="jdbc.resultsettable" additivity="false">
+		<level value="info" />
+		<appender-ref ref="console" />
+		<appender-ref ref="file" />
+	</logger>	
+	<logger name="jdbc.sqlonly" additivity="false">
+		<level value="info" />
+		<appender-ref ref="console" />
+		<appender-ref ref="file" />
+	</logger>
+	<logger name="org.quarts" additivity="false">
+		<level value="info" />
+		<appender-ref ref="console" />
+		<appender-ref ref="file" />
+	</logger>
+	
+	<!-- Root Logger -->
+	<root>
+		<priority value="error" />
+		<appender-ref ref="console" />
+		<appender-ref ref="file" />
+	</root>
+	
+</log4j:configuration>
